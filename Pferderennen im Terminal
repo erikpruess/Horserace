@@ -1,0 +1,68 @@
+import random, time
+
+
+def wetten ():
+    global punkte1, punkte2
+    wette1 = 0
+    wette2 = 0
+    wette1 = int(input('Auf welches Pferd setzt Spieler 1? '))
+    wette2 = int(input('Auf welches Pferd setzt Spieler 2? '))
+    # erwartete inputs: 1, 2; 2, 1; 1, 1; 2, 2
+    nrunden = 0
+    nrunden = int(input('Wie viele Runden? '))
+    runden(nrunden, wette1, wette2)
+
+
+def runden(anzahl, wette1, wette2):
+    global punkte1, punkte2
+    nrundenn = 0
+    pferd1 = '@1'
+    pferd2 = '@2'
+    sleepy = 0.7
+    while anzahl != 0:
+        anzahl = anzahl - 1
+        num1 = random.randint(1, 5)
+        num2 = random.randint(1, 5)
+        while num1 != -1:
+            pferd1 = '=' + pferd1
+            num1 = num1 - 1
+            if num1 == 0:
+                print(pferd1)
+        while num2 != -1:
+            pferd2 = '=' + pferd2
+            num2 = num2 - 1
+            if num2 == 0:
+                nrundenn = nrundenn + 1
+                print(pferd2)
+                print(str(anzahl))
+                time.sleep(sleepy)
+    if pferd1.__len__() > pferd2.__len__():
+        print('Sieger ist das erste Pferd!')
+        if wette1 == 1:
+            punkte1 = punkte1 + 1
+            print('Erster Spieler: ' + str(punkte1))
+        if wette2 == 1:
+            punkte2 = punkte2 + 1
+            print('Zweiter Spieler: ' + str(punkte2))
+    elif pferd1.__len__() < pferd2.__len__():
+        print('Sieger ist das zweite Pferd!')
+        if wette1 == 2:
+            punkte1 = punkte1 + 1
+            print('Erster spieler: ' + str(punkte1))
+        if wette2 == 2:
+            punkte2 = punkte2 + 1
+            print('Zweiter Spieler: ' + str(punkte2))
+    else:
+        print('Unentschieden!')
+    retry = input('Nochmal? ')
+    if retry in ['j', 'JA', 'ja', 'J', 'Ja']:
+        print(retry)
+        wetten()
+    else:
+        print('Endstand Spieler 1: ' + str(punkte1))
+        print('Endstand Spieler 2: ' + str(punkte2))
+
+
+punkte1 = 0
+punkte2 = 0
+wetten()
